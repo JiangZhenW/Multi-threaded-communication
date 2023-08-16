@@ -13,19 +13,19 @@ def start_listen(idx):
 
     ip_port = ('10.16.33.0', 5900)
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 端口复用
+    sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
 
     sk.bind(ip_port)
     sk.listen()
 
-    data = b''  # 初始化用来装图片字节流的变量
+    data = b''  # init for an image byte stream
 
     print("Socket now listening...")
     conn, address = sk.accept()
     while True:
         res = None
         IFCLOSE = False
-        # 解析视频字节流
+        # get the image byte stream
         temp = conn.recv(SIZE_BYTE)
         if FIN in temp:
             print('****************')
