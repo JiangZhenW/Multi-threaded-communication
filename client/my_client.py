@@ -26,9 +26,9 @@ def client(ip_port, img=None):
 
     while img is not None:
         """
-            发送图片
+            send an image
         """
-        # 将图像进行编码，并转成字节流传送给服务器
+        # Encodes the image and transmits it to the server as a stream of bytes
         img_encode = cv2.imencode('.jpg', img)[1]
         img_bytes = img_encode.tobytes()
 
@@ -56,16 +56,16 @@ def client(ip_port, img=None):
 def start_listen(pic):
     ip_port = ('10.16.77.2', 5800)
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 端口复用
+    sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
 
     sk.bind(ip_port)
     sk.listen()
 
-    data = b''  # 初始化用来装图片字节流的变量
+    data = b''  # init for an image byte stream
     print_log.info("Getting result img_{}...".format(pic))
     conn, address = sk.accept()
     while True:
-        # 解析视频字节流
+        # Parsing an image byte stream
         temp = conn.recv(SIZE_BYTE)
         if SEPARATOR not in temp:
             data += temp
